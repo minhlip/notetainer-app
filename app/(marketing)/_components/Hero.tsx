@@ -1,7 +1,12 @@
+'use client';
+import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import React from 'react';
 
 function Hero() {
+  const { theme } = useTheme();
+  console.log(theme);
+
   return (
     <div className="flex flex-col items-center justify-center max-w-5xl ">
       <div className="flex items-center">
@@ -10,7 +15,13 @@ function Hero() {
             src={`/documents.png`}
             fill
             alt="document"
-            className="object-contain"
+            className="object-contain dark:hidden"
+          />
+          <Image
+            src={`/documents-dark.png`}
+            fill
+            alt="document"
+            className="object-contain hidden dark:block"
           />
         </div>
         <div className="w-[400px] h-[400px] relative hidden md:block">
@@ -18,7 +29,13 @@ function Hero() {
             alt="reading"
             src="/reading.png"
             fill
-            className="object-contain"
+            className="object-contain dark:hidden"
+          />
+          <Image
+            alt="reading"
+            src="/reading-dark.png"
+            fill
+            className="object-contain hidden dark:block"
           />
         </div>
       </div>
