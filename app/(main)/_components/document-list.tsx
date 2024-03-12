@@ -62,7 +62,7 @@ function DocumentList({ parentDocumentId, level = 0 }: DocumentProps) {
           level === 0 && 'hidden'
         )}
       >
-        No pages inside
+        <div className="pl-3 w-full">No pages inside</div>
       </p>
       {documents.map((document) => (
         <div key={document._id}>
