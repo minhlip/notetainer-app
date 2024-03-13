@@ -32,7 +32,6 @@ function TrashBox() {
     return document.title.toLowerCase().includes(search.toLowerCase());
   });
 
-  console.log(filteredDocuments);
 
   const onClick = (documentId: Id<'documents'>) => {
     router.push(`/documents/${documentId}`);
@@ -86,12 +85,12 @@ function TrashBox() {
           placeholder="Filter by page title..."
         />
       </div>
-      <div className="mt-2 px-1 pb-1 ">
+      <div className="mt-2 p-3 ">
         <div className="hidden last:block">
-          <div className="flex p-2 flex-col items-center justify-center">
-            <Trash2Icon className="h-[30px] w-[30px] text-muted-foreground " />
+          <div className="flex p-2 gap-2 items-center justify-center">
+            <Trash2Icon className="h-[20px] w-[20px] text-muted-foreground " />
 
-            <p className=" text-base p-2 font-medium text-center text-muted-foreground">
+            <p className=" text-base p-1 font-medium text-center text-muted-foreground">
               No documents found{' '}
             </p>
           </div>
