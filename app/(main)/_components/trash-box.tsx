@@ -32,7 +32,6 @@ function TrashBox() {
     return document.title.toLowerCase().includes(search.toLowerCase());
   });
 
-
   const onClick = (documentId: Id<'documents'>) => {
     router.push(`/documents/${documentId}`);
   };
@@ -107,7 +106,7 @@ function TrashBox() {
               <div className="flex items-center">
                 <div
                   role="button"
-                  className="rounded-sm p-2 hover:bg-neutral-200 dark:bg-neutral-600"
+                  className="rounded-sm p-2 hover:bg-neutral-200 dark:hover:bg-neutral-600"
                 >
                   <Undo className="h-4 w-4 text-muted-foreground" />
                 </div>
@@ -117,7 +116,7 @@ function TrashBox() {
                 >
                   <div
                     role="button"
-                    className="rounded-sm p-2 hover:bg-neutral-200 dark:bg-neutral-600"
+                    className="rounded-sm p-2 hover:bg-neutral-200 dark:hover:bg-neutral-600"
                   >
                     <Trash className="w-4 h-4 text-muted-foreground" />
                   </div>

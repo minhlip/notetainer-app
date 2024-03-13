@@ -1,27 +1,27 @@
-import { api } from '@/convex/_generated/api';
-import { useSearch } from '@/hooks/use-search';
+'use client';
+
+import { useEffect, useState } from 'react';
+import { File } from 'lucide-react';
+import { useQuery } from 'convex/react';
+import { useRouter } from 'next/navigation';
 import { useUser } from '@clerk/clerk-react';
+
 import {
   CommandDialog,
+  CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-  CommandEmpty,
 } from '@/components/ui/command';
-import { useQuery } from 'convex/react';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { File } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { useSearch } from '@/hooks/use-search';
+import { api } from '@/convex/_generated/api';
 
 export const SearchCommand = () => {
   const { user } = useUser();
   const router = useRouter();
-
   const documents = useQuery(api.documents.getSearch);
-
-  const [isMounted, setIsMounted] = useState<boolean>(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   const toggle = useSearch((store) => store.toggle);
   const isOpen = useSearch((store) => store.isOpen);
@@ -43,8 +43,8 @@ export const SearchCommand = () => {
     return () => document.removeEventListener('keydown', down);
   }, [toggle]);
 
-  const onSelect = (documentId: string) => {
-    router.push(`/documents/${documentId}`);
+  const onSelect = (id: string) => {
+    router.push(`/documents/${id}`);
     onClose();
   };
 
@@ -54,20 +54,16 @@ export const SearchCommand = () => {
 
   return (
     <CommandDialog open={isOpen} onOpenChange={onClose}>
-      <CommandInput placeholder={`Search ${user?.fullName}'s Notetainer...`} />
-
+      <CommandInput placeholder={`Search ${user?.fullName}'s Jotion...`} />
       <CommandList>
-        <CommandEmpty className="w-full h-[100px] flex items-center justify-center text-[18px] font-semibold text-muted-foreground">
-          No results found
-        </CommandEmpty>
-
+        <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup heading="Documents">
           {documents?.map((document) => (
             <CommandItem
               key={document._id}
               value={`${document._id}-${document.title}`}
               title={document.title}
-              onClick={() => onSelect(document._id)}
+              onSelect={onSelect}
             >
               {document.icon ? (
                 <p className="mr-2 text-[18px]">{document.icon}</p>
