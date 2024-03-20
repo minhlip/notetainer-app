@@ -99,7 +99,7 @@ function TrashBox() {
             <div
               key={document._id}
               role="button"
-              onClick={(event) => onRestore(event, document._id)}
+              onClick={() => onClick(document._id)}
               className="text-sm rounded-sm w-full hover:bg-primary/5 flex items-center text-primary justify-between"
             >
               <span className="truncate pl-2">{document.title}</span>
@@ -107,6 +107,7 @@ function TrashBox() {
                 <div
                   role="button"
                   className="rounded-sm p-2 hover:bg-neutral-200 dark:hover:bg-neutral-600"
+                  onClick={(event) => onRestore(event, document._id)}
                 >
                   <Undo className="h-4 w-4 text-muted-foreground" />
                 </div>
