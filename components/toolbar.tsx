@@ -8,6 +8,7 @@ import { ElementRef, useRef, useState } from 'react';
 import { useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import TextareaAutosize from 'react-textarea-autosize';
+import { useCoverImage } from '@/hooks/use-cover-image';
 interface ToolbarProps {
   initialData: Doc<'documents'>;
   preview?: boolean;
@@ -17,6 +18,8 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
   const inputRef = useRef<ElementRef<'textarea'>>(null);
   const [value, setValue] = useState(initialData.title);
   const [isEditing, setIsEditing] = useState(false);
+
+  const coverImage = useCoverImage();
 
   const update = useMutation(api.documents.update);
   const removeIcon = useMutation(api.documents.removeIcon);
@@ -60,7 +63,7 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
   };
 
   return (
-    <div className="pl-[54px] group relative">
+    <div className=" group relative">
       {!!initialData.icon && !preview && (
         <div className="flex items-center gap-x-2 group/icon pt-6">
           <IconPicker onChange={onIconSelect}>
@@ -86,7 +89,7 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
           <IconPicker asChild onChange={onIconSelect}>
             <Button
               className="text-muted-foreground text-xs flex gap-2"
-              variant={'outline'}
+              variant={'ghost'}
               size={'sm'}
             >
               <Smile className="h-4 w-4" />
@@ -96,9 +99,9 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
         )}
         {!initialData.coverImage && !preview && (
           <Button
-            onClick={() => {}}
+            onClick={coverImage.onOpen}
             className="text-muted-foreground text-xs"
-            variant={'outline'}
+            variant={'ghost'}
             size={'sm'}
           >
             <ImageIcon className="h-4 w-4 mr-2" />
@@ -114,6 +117,7 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
           value={value}
           onChange={(e) => onInput(e.target.value)}
           className="text-5xl bg-transparent font-bold break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF] resize-none"
+          placeholder="Untitled"
         />
       ) : (
         <div
